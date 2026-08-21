@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Fahmi — Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --bg-elevated: #111113;
+            --card: #16161a;
+            --border: #2a2a30;
+            --fg: #ececf0;
+            --muted: #72727e;
+            --accent: #e8a838;
+            --accent-glow: rgba(232, 168, 56, 0.25);
+            --accent-secondary: #38e8b0;
+            --accent-secondary-glow: rgba(56, 232, 176, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Syne', sans-serif; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 11, 0.7);
+            border-bottom: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            border-bottom-color: var(--border);
+            background: rgba(10, 10, 11, 0.92);
+        }
+        .nav-link {
+            position: relative;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--fg); }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* ===== HERO ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+        .hero-gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 500px; height: 500px;
+            background: var(--accent);
+            top: -10%; right: -5%;
+            animation: orbFloat1 12s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 350px; height: 350px;
+            background: var(--accent-secondary);
+            bottom: 5%; left: -5%;
+            animation: orbFloat2 15s ease-in-out infinite;
+        }
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-60px, 40px) scale(1.1); }
+        }
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -50px) scale(0.9); }
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .hero-title .accent-text {
+            background: linear-gradient(135deg, var(--accent), #f0c060, var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--muted);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        /* ===== TOMBOL ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+        .btn-primary:hover::before { transform: translateX(100%); }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--fg);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTION UMUM ===== */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 24px; height: 2px;
+            background: var(--accent);
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        .section-desc {
+            color: var(--muted);
+            max-width: 560px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* ===== TENTANG ===== */
+        .about-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .about-card:hover::before { opacity: 1; }
+        .about-card:hover {
+            border-color: rgba(232, 168, 56, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        .about-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== STATISTIK ===== */
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        /* ===== SKILL BAR ===== */
+        .skill-bar-track {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-elevated);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* ===== PROYEK ===== */
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            border-color: rgba(232, 168, 56, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-img { transform: scale(1.05); }
+        .project-tag {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            transition: all 0.3s;
+        }
+        .project-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-line {
+            position: absolute;
+            left: 19px;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), transparent);
+        }
+        .timeline-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        /* ===== KONTAK ===== */
+        .contact-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--fg);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .contact-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .contact-input::placeholder { color: var(--muted); }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            padding: 16px 24px;
+            background: var(--card);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            color: var(--fg);
+            font-size: 0.9rem;
+            z-index: 200;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== CURSOR GLOW (desktop) ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cursor-glow.active { opacity: 1; }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 11, 0.97);
+            backdrop-filter: blur(20px);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu .nav-link { font-size: 1.5rem; }
+
+        /* ===== FOOTER ===== */
+        .footer-grid-line {
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* ===== RESPONSIF ===== */
+        @media (max-width: 768px) {
+            .navbar { padding: 0.75rem 1rem; }
+            .hero-title { font-size: 2.5rem; }
+            .cursor-glow { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="font-display font-bold text-lg tracking-tight" style="color: var(--fg); text-decoration: none;">
+                AF<span style="color: var(--accent);">.</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#tentang" class="nav-link" data-section="tentang">Tentang</a>
+                <a href="#keahlian" class="nav-link" data-section="keahlian">Keahlian</a>
+                <a href="#proyek" class="nav-link" data-section="proyek">Proyek</a>
+                <a href="#perjalanan" class="nav-link" data-section="perjalanan">Perjalanan</a>
+                <a href="#kontak" class="nav-link" data-section="kontak">Kontak</a>
+            </div>
+            <button class="md:hidden" id="menuBtn" style="background:none;border:none;color:var(--fg);font-size:1.4rem;cursor:pointer;" aria-label="Buka menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button id="closeMenuBtn" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--fg);font-size:1.5rem;cursor:pointer;" aria-label="Tutup menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#tentang" class="nav-link mobile-link">Tentang</a>
+        <a href="#keahlian" class="nav-link mobile-link">Keahlian</a>
+        <a href="#proyek" class="nav-link mobile-link">Proyek</a>
+        <a href="#perjalanan" class="nav-link mobile-link">Perjalanan</a>
+        <a href="#kontak" class="nav-link mobile-link">Kontak</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-gradient-orb orb-1"></div>
+        <div class="hero-gradient-orb orb-2"></div>
+        <canvas id="hero-canvas"></canvas>
+        <div class="max-w-6xl mx-auto px-6 relative z-10 w-full">
+            <div class="mb-6 reveal">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Tersedia untuk kolaborasi
+                </div>
+            </div>
+            <h1 class="hero-title font-display mb-6 reveal" style="transition-delay: 0.1s;">
+                Halo, saya<br>
+                <span class="accent-text">Ahmad Fahmi</span>
+            </h1>
+            <p class="hero-subtitle mb-10 reveal" style="transition-delay: 0.2s;">
+                Seorang pelajar dari Karang Anyar, Jakarta Pusat yang memiliki semangat besar di dunia teknologi dan pengembangan web. Lahir pada 27 Juli 2008, saya terus belajar dan berkembang.
+            </p>
+            <div class="flex flex-wrap gap-4 reveal" style="transition-delay: 0.3s;">
+                <a href="#proyek" class="btn-primary">
+                    Lihat Proyek <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#kontak" class="btn-outline">
+                    Hubungi Saya <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+            <!-- Scroll indicator -->
+            <div class="mt-20 reveal" style="transition-delay: 0.5s;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;">
+                    <span>Scroll</span>
+                    <div style="width:1px;height:40px;background:linear-gradient(to bottom, var(--muted), transparent);animation: scrollLine 2s ease-in-out infinite;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        @keyframes scrollLine {
+            0% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.3; transform: scaleY(0.5); }
+            100% { opacity: 1; transform: scaleY(1); }
+        }
+    </style>
+
+    <!-- Tentang Section -->
+    <section class="py-24 px-6" id="tentang">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div class="reveal">
+                    <div class="section-label">Tentang Saya</div>
+                    <h2 class="section-title font-display">Mengenal lebih dekat<br>siapa saya</h2>
+                    <p class="section-desc mb-6">
+                        Saya Ahmad Fahmi, seorang pelajar yang tinggal di kawasan Karang Anyar, Jakarta Pusat. Sejak kecil saya sudah tertarik dengan dunia teknologi, terutama di bidang pengembangan web.
+                    </p>
+                    <p class="section-desc">
+                        Dengan semangat belajar yang tinggi, saya terus mengasah kemampuan di berbagai teknologi web modern. Saya percaya bahwa usia muda bukanlah penghalang untuk menciptakan karya yang bermakna.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="about-card reveal" style="transition-delay:0.1s;">
+                        <div class="about-icon" style="background:rgba(232,168,56,0.12);color:var(--accent);">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="font-semibold text-base mb-1">Identitas</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Ahmad Fahmi, lahir 27 Juli 2008 di Jakarta</p>
+                    </div>
+                    <div class="about-card reveal" style="transition-delay:0.2s;">
+                        <div class="about-icon" style="background:rgba(56,232,176,0.12);color:var(--accent-secondary);">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="font-semibold text-base mb-1">Lokasi</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Karang Anyar, Jakarta Pusat, DKI Jakarta</p>
+                    </div>
+                    <div class="about-card reveal" style="transition-delay:0.3s;">
+                        <div class="about-icon" style="background:rgba(232,168,56,0.12);color:var(--accent);">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-semibold text-base mb-1">Status</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Pelajar aktif, fokus pada pengembangan web</p>
+                    </div>
+                    <div class="about-card reveal" style="transition-delay:0.4s;">
+                        <div class="about-icon" style="background:rgba(56,232,176,0.12);color:var(--accent-secondary);">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="font-semibold text-base mb-1">Motivasi</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Terus berkarya dan berkontribusi di dunia digital</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistik -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+                <div class="text-center reveal" style="transition-delay:0.1s;">
+                    <div class="stat-number font-display" data-target="5">0</div>
+                    <p style="color:var(--muted);font-size:0.85rem;margin-top:8px;">Proyek Selesai</p>
+                </div>
+                <div class="text-center reveal" style="transition-delay:0.2s;">
+                    <div class="stat-number font-display" data-target="6">0</div>
+                    <p style="color:var(--muted);font-size:0.85rem;margin-top:8px;">Teknologi Dikuasai</p>
+                </div>
+                <div class="text-center reveal" style="transition-delay:0.3s;">
+                    <div class="stat-number font-display" data-target="2">0</div>
+                    <p style="color:var(--muted);font-size:0.85rem;margin-top:8px;">Tahun Belajar</p>
+                </div>
+                <div class="text-center reveal" style="transition-delay:0.4s;">
+                    <div class="stat-number font-display" data-target="100">0</div>
+                    <p style="color:var(--muted);font-size:0.85rem;margin-top:8px;">Persen Semangat</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keahlian Section -->
+    <section class="py-24 px-6" id="keahlian" style="background: var(--bg-elevated);">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <div class="section-label" style="justify-content:center;">Keahlian</div>
+                <h2 class="section-title font-display">Teknologi yang saya<br>kuasai & pelajari</h2>
+                <p class="section-desc mx-auto">Berikut adalah teknologi-teknologi yang saat ini saya gunakan dan terus kembangkan dalam perjalanan saya sebagai developer muda.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Skill Bars -->
+                <div class="space-y-6">
+                    <div class="reveal" style="transition-delay:0.1s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">HTML & CSS</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">90%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+                    </div>
+                    <div class="reveal" style="transition-delay:0.15s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">JavaScript</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">80%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+                    </div>
+                    <div class="reveal" style="transition-delay:0.2s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">Tailwind CSS</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">85%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+                    </div>
+                    <div class="reveal" style="transition-delay:0.25s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">React.js</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">65%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+                    </div>
+                    <div class="reveal" style="transition-delay:0.3s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">Node.js</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">55%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+                    </div>
+                    <div class="reveal" style="transition-delay:0.35s;">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium text-sm">Git & GitHub</span>
+                            <span style="color:var(--accent);font-size:0.85rem;font-weight:600;">75%</span>
+                        </div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+                    </div>
+                </div>
+
+                <!-- Skill Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="about-card text-center reveal" style="transition-delay:0.1s;">
+                        <i class="fab fa-html5 text-2xl mb-3" style="color:#e34f26;"></i>
+                        <p class="font-medium text-sm">HTML5</p>
+                    </div>
+                    <div class="about-card text-center reveal" style="transition-delay:0.15s;">
+                        <i class="fab fa-css3-alt text-2xl mb-3" style="color:#1572b6;"></i>
+                        <p class="font-medium text-sm">CSS3</p>
+                    </div>
+                    <div class="about-card text-center reveal" style="transition-delay:0.2s;">
+                        <i class="fab fa-js-square text-2xl mb-3" style="color:#f7df1e;"></i>
+                        <p class="font-medium text-sm">JavaScript</p>
+                    </div>
+                    <div class="about-card text-center reveal" style="transition-delay:0.25s;">
+                        <i class="fab fa-react text-2xl mb-3" style="color:#61dafb;"></i>
+                        <p class="font-medium text-sm">React</p>
+                    </div>
+                    <div class="about-card text-center reveal" style="transition-delay:0.3s;">
+                        <i class="fab fa-node-js text-2xl mb-3" style="color:#339933;"></i>
+                        <p class="font-medium text-sm">Node.js</p>
+                    </div>
+                    <div class="about-card text-center reveal" style="transition-delay:0.35s;">
+                        <i class="fab fa-git-alt text-2xl mb-3" style="color:#f05032;"></i>
+                        <p class="font-medium text-sm">Git</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyek Section -->
+    <section class="py-24 px-6" id="proyek">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <div class="section-label" style="justify-content:center;">Proyek</div>
+                <h2 class="section-title font-display">Karya yang pernah<br>saya buat</h2>
+                <p class="section-desc mx-auto">Setiap proyek adalah kesempatan untuk belajar dan berkembang. Berikut beberapa proyek pilihan yang telah saya kerjakan.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+                <button class="filter-btn active" data-filter="semua" style="padding:8px 20px;border-radius:999px;border:1px solid var(--border);background:var(--accent);color:var(--bg);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'Space Grotesk',sans-serif;">Semua</button>
+                <button class="filter-btn" data-filter="web" style="padding:8px 20px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'Space Grotesk',sans-serif;">Website</button>
+                <button class="filter-btn" data-filter="ui" style="padding:8px 20px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'Space Grotesk',sans-serif;">UI/UX</button>
+                <button class="filter-btn" data-filter="app" style="padding:8px 20px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'Space Grotesk',sans-serif;">Aplikasi</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectGrid">
+                <!-- Generated from GitHub: absensi-digital -->
+                <div class="project-card reveal" data-category="web" style="transition-delay:0.1s;">
+                    <div style="overflow:hidden;">
+                        <img src="https://opengraph.githubassets.com/1/afsevenyyy27-web/absensi-digital" alt="Absensi Digital repo preview" class="project-img">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-base mb-2">Absensi Digital</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:12px;">Next.js + TypeScript — aplikasi absensi siswa digital dengan login guru, admin, dan siswa.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/afsevenyyy27-web/absensi-digital" target="_blank" rel="noopener" class="project-tag">Lihat Repo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Added repo: berita--headline-olahraga-politik-teknologi-dan-dll- -->
+                <div class="project-card reveal" data-category="web" style="transition-delay:0.2s;">
+                    <div style="overflow:hidden;">
+                        <img src="https://raw.githubusercontent.com/rezyalfarabi/berita--headline-olahraga-politik-teknologi-dan-dll-/main/assets/icon/app_icon.png" alt="Berita Headline app icon" class="project-img">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-base mb-2">Berita Headline</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:12px;">Flutter news app — headline olahraga, politik, teknologi, dan kategori berita lainnya.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/rezyalfarabi/berita--headline-olahraga-politik-teknologi-dan-dll-" target="_blank" rel="noopener" class="project-tag">Lihat Repo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Added repo: parfume -->
+                <div class="project-card reveal" data-category="web" style="transition-delay:0.3s;">
+                    <div style="overflow:hidden;">
+                        <img src="https://opengraph.githubassets.com/1/afsevenyyy27-web/parfume" alt="Parfume project preview" class="project-img">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-base mb-2">Parfume</h3>
+                        <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:12px;">Landing page parfum premium dengan desain elegan, modern, dan nuansa luxury untuk brand skincare/perfume.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/afsevenyyy27-web/parfume" target="_blank" rel="noopener" class="project-tag">Lihat Repo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perjalanan / Pendidikan Section -->
+    <section class="py-24 px-6" id="perjalanan" style="background: var(--bg-elevated);">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <div class="section-label">Pendidikan</div>
+                    <h2 class="section-title font-display">Riwayat<br>Pendidikan</h2>
+                    <p class="section-desc mb-8">Saya bersekolah di SMK Jakarta Pusat 1 dari 2024 sampai 2026. Berikut ringkasan materi yang saya pelajari tiap kelas.</p>
+                    <div class="about-card" style="border-color: rgba(232,168,56,0.2);">
+                        <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;font-style:italic;">
+                            "Belajar secara konsisten di sekolah dan proyek pribadi membantu saya memahami konsep backend, frontend, dan pengembangan aplikasi mobile."
+                        </p>
+                        <p class="mt-4 font-semibold text-sm" style="color:var(--accent);">— SMK Jakarta Pusat 1</p>
+                    </div>
+                </div>
+
+                <div class="relative" style="padding-left: 2rem;">
+                    <div class="timeline-line"></div>
+
+                    <div class="flex gap-4 mb-10 reveal" style="transition-delay:0.1s;">
+                        <div class="timeline-dot mt-1"></div>
+                        <div>
+                            <span style="color:var(--accent);font-size:0.8rem;font-weight:600;">2024</span>
+                            <h4 class="font-semibold mt-1 mb-1">Masuk SMK Jakarta Pusat 1 — Kelas 10</h4>
+                            <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Mulai mempelajari dasar-dasar web: HTML, CSS, dan JavaScript sebagai fondasi pengembangan front-end.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mb-10 reveal" style="transition-delay:0.2s;">
+                        <div class="timeline-dot mt-1"></div>
+                        <div>
+                            <span style="color:var(--accent);font-size:0.8rem;font-weight:600;">2025</span>
+                            <h4 class="font-semibold mt-1 mb-1">Kelas 11</h4>
+                            <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Memperdalam backend dan database: MySQL, Node.js, Express.js, serta PHP untuk membangun API dan mengelola data.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 reveal" style="transition-delay:0.3s;">
+                        <div class="timeline-dot mt-1" style="background:var(--accent-secondary);box-shadow:0 0 0 3px var(--accent-secondary-glow);"></div>
+                        <div>
+                            <span style="color:var(--accent-secondary);font-size:0.8rem;font-weight:600;">2026</span>
+                            <h4 class="font-semibold mt-1 mb-1">Kelas 12 (Sekarang)</h4>
+                            <p style="color:var(--muted);font-size:0.85rem;line-height:1.6;">Fokus pada teknologi modern: Next.js untuk web fullstack, serta Flutter dan Dart untuk pengembangan aplikasi mobile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section class="py-24 px-6" id="kontak">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <div class="section-label">Kontak</div>
+                    <h2 class="section-title font-display">Mari terhubung<br>dengan saya</h2>
+                    <p class="section-desc mb-10">Tertarik untuk berkolaborasi atau sekadar berdiskusi? Jangan ragu untuk menghubungi saya melalui form ini atau media sosial di bawah.</p>
+
+                    <div class="space-y-4">
+                        <a href="mailto:afsevenyyy27@gmail.com" style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--fg);transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(232,168,56,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+                            <div style="width:42px;height:42px;border-radius:10px;background:rgba(232,168,56,0.12);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p style="font-size:0.75rem;color:var(--muted);">Email</p>
+                                <p class="font-medium text-sm">afsevenyyy27@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="https://github.com/afsevenyyy27-web" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--fg);transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(232,168,56,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+                            <div style="width:42px;height:42px;border-radius:10px;background:rgba(56,232,176,0.12);display:flex;align-items:center;justify-content:center;color:var(--accent-secondary);flex-shrink:0;">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div>
+                                <p style="font-size:0.75rem;color:var(--muted);">GitHub</p>
+                                <p class="font-medium text-sm">github.com/afsevenyyy27-web</p>
+                            </div>
+                        </a>
+                        <a href="https://instagram.com/waynnn___" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-decoration:none;color:var(--fg);transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(232,168,56,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+                            <div style="width:42px;height:42px;border-radius:10px;background:rgba(232,168,56,0.12);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <p style="font-size:0.75rem;color:var(--muted);">Instagram</p>
+                                <p class="font-medium text-sm">@waynnn___</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal" style="transition-delay:0.15s;">
+                    <form id="contactForm" style="display:flex;flex-direction:column;gap:16px;">
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;">Nama Lengkap</label>
+                            <input type="text" class="contact-input" placeholder="Masukkan nama Anda" required id="inputName">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;">Email</label>
+                            <input type="email" class="contact-input" placeholder="email@contoh.com" required id="inputEmail">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;">Subjek</label>
+                            <input type="text" class="contact-input" placeholder="Topik pesan Anda" required id="inputSubject">
+                        </div>
+                        <div>
+                            <label style="font-size:0.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;">Pesan</label>
+                            <textarea class="contact-input" rows="5" placeholder="Tulis pesan Anda di sini..." required id="inputMessage" style="resize:vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="justify-content:center;margin-top:8px;">
+                            Kirim Pesan <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="position:relative;padding:3rem 1.5rem;text-align:center;">
+        <div class="footer-grid-line"></div>
+        <div class="max-w-6xl mx-auto">
+            <p class="font-display font-bold text-xl mb-3" style="letter-spacing:-0.02em;">
+                AF<span style="color:var(--accent);">.</span>
+            </p>
+            <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">
+                Dibuat dengan semangat oleh Ahmad Fahmi dari Karang Anyar, Jakarta Pusat.
+            </p>
+            <div class="flex justify-center gap-4 mb-6">
+                <a href="https://github.com/afsevenyyy27-web" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://instagram.com/waynnn___" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/in/ahmadfahmi" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <p style="color:var(--muted);font-size:0.75rem;opacity:0.6;">
+                &copy; 2025 Ahmad Fahmi. Hak cipta dilindungi.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle" style="color:var(--accent);"></i>
+        <span id="toastMessage">Pesan berhasil dikirim!</span>
+    </div>
+
+    <script>
+        // ===== PARTIKEL CANVAS DI HERO =====
+        (function() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: -1000, y: -1000 };
+            let animId;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Buat partikel
+            const PARTICLE_COUNT = 80;
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    r: Math.random() * 2 + 0.5,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+
+            canvas.addEventListener('mousemove', function(e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            canvas.addEventListener('mouseleave', function() {
+                mouse.x = -1000;
+                mouse.y = -1000;
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Batas layar
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    // Pengaruh mouse
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        p.x -= dx * 0.01;
+                        p.y -= dy * 0.01;
+                    }
+
+                    // Gambar partikel
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, Math.max(0.5, p.r), 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(232, 168, 56, ' + p.opacity + ')';
+                    ctx.fill();
+
+                    // Garis penghubung antar partikel yang dekat
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const ddx = p.x - p2.x;
+                        const ddy = p.y - p2.y;
+                        const d = Math.sqrt(ddx * ddx + ddy * ddy);
+                        if (d < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = 'rgba(232, 168, 56, ' + (0.08 * (1 - d / 120)) + ')';
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                animId = requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ===== CURSOR GLOW =====
+        (function() {
+            const glow = document.getElementById('cursorGlow');
+            let isDesktop = window.innerWidth > 768;
+
+            if (isDesktop) {
+                glow.classList.add('active');
+                document.addEventListener('mousemove', function(e) {
+                    glow.style.left = e.clientX + 'px';
+                    glow.style.top = e.clientY + 'px';
+                });
+            }
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    glow.classList.add('active');
+                } else {
+                    glow.classList.remove('active');
+                }
+            });
+        })();
+
+        // ===== NAVBAR SCROLL =====
+        (function() {
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link[data-section]');
+
+            window.addEventListener('scroll', function() {
+                // Navbar background
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Active nav link
+                let current = '';
+                sections.forEach(function(section) {
+                    const top = section.offsetTop - 120;
+                    if (window.scrollY >= top) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        })();
+
+        // ===== MOBILE MENU =====
+        (function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            menuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeMenu);
+            mobileLinks.forEach(function(link) {
+                link.addEventListener('click', closeMenu);
+            });
+        })();
+
+        // ===== SCROLL REVEAL (IntersectionObserver) =====
+        (function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        // ===== ANIMASI ANGKA STATISTIK =====
+        (function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            let animated = false;
+
+            function animateNumbers() {
+                if (animated) return;
+                animated = true;
+
+                statNumbers.forEach(function(el) {
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // Easing: ease-out cubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.round(eased * target);
+                        el.textContent = current + (target === 100 ? '%' : '+');
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        }
+                    }
+                    requestAnimationFrame(update);
+                });
+            }
+
+            const statObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        animateNumbers();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            statNumbers.forEach(function(el) { statObserver.observe(el); });
+        })();
+
+        // ===== ANIMASI SKILL BAR =====
+        (function() {
+            const skillBars = document.querySelectorAll('.skill-bar-fill');
+
+            const skillObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.getAttribute('data-width');
+                        entry.target.style.width = width + '%';
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            skillBars.forEach(function(bar) { skillObserver.observe(bar); });
+        })();
+
+        // ===== FILTER PROYEK =====
+        (function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    // Update tombol aktif
+                    filterBtns.forEach(function(b) {
+                        b.style.background = 'transparent';
+                        b.style.color = 'var(--muted)';
+                        b.classList.remove('active');
+                    });
+                    btn.style.background = 'var(--accent)';
+                    btn.style.color = 'var(--bg)';
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(function(card) {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'semua' || category === filter) {
+                            card.style.display = '';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            requestAnimationFrame(function() {
+                                card.style.transition = 'all 0.4s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            });
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(function() {
+                                card.style.display = 'none';
+                            }, 400);
+                        }
+                    });
+                });
+            });
+        })();
+
+        // ===== FORM KONTAK =====
+        (function() {
+            const form = document.getElementById('contactForm');
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('inputName').value.trim();
+                const email = document.getElementById('inputEmail').value.trim();
+                const subject = document.getElementById('inputSubject').value.trim();
+                const message = document.getElementById('inputMessage').value.trim();
+
+                // Validasi sederhana
+                if (!name || !email || !subject || !message) {
+                    showToast('Mohon lengkapi semua field.', false);
+                    return;
+                }
+
+                // Simulasi pengiriman
+                const btn = form.querySelector('button[type="submit"]');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+                btn.disabled = true;
+
+                setTimeout(function() {
+                    showToast('Pesan dari ' + name + ' berhasil dikirim!', true);
+                    form.reset();
+                    btn.innerHTML = 'Kirim Pesan <i class="fas fa-paper-plane"></i>';
+                    btn.disabled = false;
+                }, 1500);
+            });
+
+            function showToast(msg, success) {
+                const icon = toast.querySelector('i');
+                if (success) {
+                    icon.className = 'fas fa-check-circle';
+                    icon.style.color = 'var(--accent)';
+                    toast.style.borderColor = 'var(--accent)';
+                } else {
+                    icon.className = 'fas fa-exclamation-circle';
+                    icon.style.color = '#e84848';
+                    toast.style.borderColor = '#e84848';
+                }
+                toastMsg.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3500);
+            }
+        })();
+
+        // ===== EFEK TYPING DI HERO (opsional, subtle) =====
+        (function() {
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (!subtitle) return;
+
+            const originalText = subtitle.textContent;
+            subtitle.textContent = '';
+            subtitle.style.opacity = '1';
+
+            let charIndex = 0;
+            let started = false;
+
+            function startTyping() {
+                if (started) return;
+                started = true;
+
+                function typeChar() {
+                    if (charIndex < originalText.length) {
+                        subtitle.textContent += originalText.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeChar, 12);
+                    }
+                }
+                typeChar();
+            }
+
+            // Mulai typing setelah reveal muncul
+            const typingObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        setTimeout(startTyping, 600);
+                        typingObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            typingObserver.observe(subtitle);
+        })();
+    </script>
+</body>
+</html>
